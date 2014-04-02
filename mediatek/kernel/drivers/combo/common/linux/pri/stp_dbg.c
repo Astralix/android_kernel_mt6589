@@ -254,8 +254,9 @@ INT32 wcn_core_dump_in(P_WCN_CORE_DUMP_T dmp, PUINT8 buf, INT32 len)
             
             // show coredump start info on UI
             //osal_dbg_assert_aee("MT662x f/w coredump start", "MT662x firmware coredump start");
+#ifdef CONFIG_MTK_AEE_FEATURE
             aee_kernel_dal_show("MT662x coredump start, please wait up to 5 minutes.\n");
-            
+#endif            
             // parsing data, and check end srting
             ret = wcn_core_dump_check_end(buf, len);
             if (ret == 1) {
@@ -372,7 +373,9 @@ INT32 wcn_core_dump_flush(INT32 rst)
             
     // show coredump end info on UI
     //osal_dbg_assert_aee("MT662x f/w coredump end", "MT662x firmware coredump ends");
+#ifdef CONFIG_MTK_AEE_FEATURE
     aee_kernel_dal_show("MT662x coredump end\n");
+#endif
             
     // call AEE driver API
     aed_combo_exception(NULL, 0, (const int*)pbuf, len, (const char*)g_core_dump->info);
